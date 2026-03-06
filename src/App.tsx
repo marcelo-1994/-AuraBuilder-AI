@@ -12,12 +12,13 @@ import {
   Wand2,
   LayoutTemplate
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { generateAppCode } from './services/geminiService';
 
 type Tab = 'preview' | 'code' | 'architecture';
 
 export default function App() {
+  console.log('App rendering');
   const [activeTab, setActiveTab] = useState<Tab>('preview');
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState([
