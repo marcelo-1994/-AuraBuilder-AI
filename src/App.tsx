@@ -54,8 +54,8 @@ export default function App() {
         content: `I've generated the app for you! ${result.description}` 
       }]);
     } catch (error) {
-      console.error(error);
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error generating the app.' }]);
+      console.error('Generation error details:', error);
+      setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I encountered an error generating the app: ${error instanceof Error ? error.message : 'Unknown error'}` }]);
     } finally {
       setIsGenerating(false);
     }
