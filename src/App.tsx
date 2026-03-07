@@ -46,6 +46,7 @@ export default function App() {
     setIsGenerating(true);
     
     try {
+      console.log('Attempting to generate app...');
       const result = await generateAppCode(prompt, selectedVibe);
       setGeneratedCode(result.code);
       setAppDescription(result.description);
