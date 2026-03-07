@@ -4,11 +4,16 @@ let ai: GoogleGenAI | null = null;
 
 function getAI() {
   if (!ai) {
-    const apiKey = process.env.GEMINI_API_KEY;
+    // Attempt to get the key from process.env (Node/Webpack) or import.meta.env (Vite)
+    // The platform might inject it differently depending on the build step.
+    const apiKey = process.env.GEMINI_API_KEY || (import.meta as any).env?.VITE_GEMINI_API_KEY;
+    
     if (!apiKey) {
-      throw new Error('GEMINI_API_KEY environment variable is required. Please ensure it is set in the environment.');
+      console.warn('GEMINI_API_KEY not found in process.env or import.meta.env. The SDK might fail if it cannot find it internally.');
     }
-    ai = new GoogleGenAI({ apiKey });
+    
+    // Pass the key if we found it, otherwise let the SDK try to find it
+    ai = new GoogleGenAI(apiKey ? { apiKey } : {});
   }
   return ai;
 }
